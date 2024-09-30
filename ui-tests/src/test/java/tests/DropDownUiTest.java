@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import pages.DropdownPage;
 import pages.MainPage;
 
-import java.util.Random;
 
 public class DropDownUiTest extends BaseTest{
 

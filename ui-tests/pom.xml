@@ -39,6 +39,8 @@
             <artifactId>allure-selenide</artifactId>
             <version>${allure.junit5.version}</version>
         </dependency>
+
+
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>

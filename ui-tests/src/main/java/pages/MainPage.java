@@ -19,4 +19,7 @@ public class MainPage extends BasePage{
     public  void goToInputsPage() {
         $x("//a[@href ='/inputs']").click();
     }
+    public void goToHoversPage() {
+        $x("//a[@href ='/hovers']").click();
+    }
 }
