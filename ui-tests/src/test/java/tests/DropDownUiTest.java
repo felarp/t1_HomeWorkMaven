@@ -5,14 +5,17 @@ import org.junit.jupiter.api.Test;
 import pages.DropdownPage;
 import pages.MainPage;
 
+import java.util.Random;
+
 public class DropDownUiTest extends BaseTest{
 
     MainPage mainPage = new MainPage();
     DropdownPage dropdownPage = new DropdownPage();
 
+
     @Test
 
-    public void testDropdownOptions() {
+    public void dropdownOptionsTest() {
         openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToDropdownPage();
         dropdownPage.selectFirstOption();

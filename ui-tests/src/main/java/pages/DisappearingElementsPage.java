@@ -1,34 +1,33 @@
 package pages;
 
-import com.codeborne.selenide.ElementsCollection;
 
-import java.util.Collections;
+import com.codeborne.selenide.SelenideElement;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.refresh;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DisappearingElementsPage extends BasePage {
 
-
-    public List<ElementsCollection> getElements() {
-        return Collections.singletonList($$x("//li/a"));
+    public List<SelenideElement> getElements() {
+        return $$("ul li").stream().collect(Collectors.toList());
     }
-        public void refreshPage() {
-        refresh();
-        }
 
-        public boolean findFiveElementsWithAttempts (int maxAttempts) {
-        for(int attempts = 0; attempts< maxAttempts; attempts ++) {
-            List<ElementsCollection> elements = getElements();
+    public void refreshPage() {
+        refresh();
+    }
+
+    public void findFiveElementsWithAttempts(int maxAttempts) {
+        for (int attempts = 0; attempts < maxAttempts; attempts++) {
+            List<SelenideElement> elements = getElements();
+
+            System.out.println("Attempt " + (attempts + 1) + ": Found " + elements.size() + " elements.");
 
             if (elements.size() == 5) {
-                assertElementCount(5, elements.size(), attempts + 1);
-                return true;
+                return;
             }
             refreshPage();
         }
-        assertElementCount(5,0,maxAttempts);
-        return false;
-        }
+        throw new AssertionError("Failed to find 5 elements after " + maxAttempts + " attempts.");
+    }
 }

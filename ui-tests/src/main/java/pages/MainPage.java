@@ -16,4 +16,7 @@ public class MainPage extends BasePage{
     public void goToDisappearingElementsPage() {
         $x("//a[@href='/disappearing_elements']").click();
     }
+    public  void goToInputsPage() {
+        $x("//a[@href ='/inputs']").click();
+    }
 }

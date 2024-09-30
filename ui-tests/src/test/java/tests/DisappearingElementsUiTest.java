@@ -14,7 +14,7 @@ public class DisappearingElementsUiTest extends BaseTest {
 
     @Test
 
-    public void testDisappearingElements() {
+    public void disappearingElementsTest() {
         openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToDisappearingElementsPage();
         disappearingElementsPage.findFiveElementsWithAttempts(10);

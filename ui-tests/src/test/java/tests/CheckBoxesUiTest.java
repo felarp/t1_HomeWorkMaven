@@ -12,17 +12,13 @@ public class CheckBoxesUiTest extends BaseTest {
 
     @Test
 
-    public void testCheckboxes() {
+    public void checkboxesTest() {
 
         openBrowser(Urls.MAINPAGE.getUrl());
 
         mainPage.goToCheckboxesPage();
         checkBoxesPage.chooseCheckboxesAndPrintStates();
 
-//        checkBoxesPage.checkFirstCheckbox();
-//        checkBoxesPage.uncheckSecondCheckbox();
-//
-//        checkBoxesPage.printFirstCheckboxState();
-//        checkBoxesPage.printSecondCheckboxState();
+
     }
 }
