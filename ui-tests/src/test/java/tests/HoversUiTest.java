@@ -15,7 +15,7 @@ public class HoversUiTest extends BaseTest{
     public void hoverOverImagesTest() {
 
         openBrowser(Urls.MAINPAGE.getUrl());
-        mainPage.goToHoversPage();
+        mainPage.goToPage("hovers");
         hoversPage.hoverOverImagesAndPrintCaptions();
 
     }

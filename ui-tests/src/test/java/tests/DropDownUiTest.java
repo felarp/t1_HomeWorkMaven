@@ -16,7 +16,7 @@ public class DropDownUiTest extends BaseTest{
 
     public void dropdownOptionsTest() {
         openBrowser(Urls.MAINPAGE.getUrl());
-        mainPage.goToDropdownPage();
+        mainPage.goToPage("dropdown");
         dropdownPage.selectFirstOption();
         dropdownPage.selectSecondOption();
     }

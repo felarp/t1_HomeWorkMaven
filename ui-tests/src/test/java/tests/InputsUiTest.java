@@ -17,7 +17,7 @@ public class InputsUiTest extends BaseTest {
 
 public void inputsTest() {
     openBrowser(Urls.MAINPAGE.getUrl());
-    mainPage.goToInputsPage();
+    mainPage.goToPage("inputs");
 
     int randomNumber = 1 + random.nextInt(10000);
     inputsPage.enterRandomNumber(randomNumber);

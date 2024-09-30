@@ -16,7 +16,7 @@ public class CheckBoxesUiTest extends BaseTest {
 
         openBrowser(Urls.MAINPAGE.getUrl());
 
-        mainPage.goToCheckboxesPage();
+        mainPage.goToPage("checkboxes");
         checkBoxesPage.chooseCheckboxesAndPrintStates();
 
 
