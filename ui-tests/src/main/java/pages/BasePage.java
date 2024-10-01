@@ -1,5 +1,4 @@
 package pages;
-import static org.junit.Assert.assertEquals;
 
 import com.codeborne.selenide.SelenideElement;
 

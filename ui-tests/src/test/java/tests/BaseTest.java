@@ -1,19 +1,19 @@
 package tests;
 
 import configuration.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 
 
 public class BaseTest {
 
-    WebDriverManager driver = new WebDriverManager();
+    static WebDriverManager driver = new WebDriverManager();
 
-    public void openBrowser(String url) {
+    public  static void openBrowser(String url) {
         driver.browserUp(url);
     }
 
-    @AfterEach
-    public void closeBrowser() {
+    @AfterAll
+    public static void closeBrowser() {
         driver.browserTearDown();
     }
 }

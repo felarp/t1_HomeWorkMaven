@@ -1,10 +1,8 @@
 package pages;
 
-
 import com.codeborne.selenide.SelenideElement;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static com.codeborne.selenide.Selenide.*;
 
 public class DisappearingElementsPage extends BasePage {

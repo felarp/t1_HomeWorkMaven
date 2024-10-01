@@ -11,9 +11,7 @@ public class DropDownUiTest extends BaseTest{
     MainPage mainPage = new MainPage();
     DropdownPage dropdownPage = new DropdownPage();
 
-
     @Test
-
     public void dropdownOptionsTest() {
         openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToPage("dropdown");

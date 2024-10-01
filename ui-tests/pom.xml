@@ -9,7 +9,6 @@
     </parent>
     <artifactId>ui-tests</artifactId>
 
-
     <properties>
         <selenide.version>7.4.3</selenide.version>
         <guava.version>33.3.0-jre</guava.version>
@@ -29,17 +28,11 @@
     </repositories>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.example</groupId>-->
-<!--            <artifactId>api-tests</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-selenide</artifactId>
             <version>${allure.junit5.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.codeborne</groupId>

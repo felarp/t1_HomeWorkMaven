@@ -1,10 +1,8 @@
 package tests;
 
-
 import enums.Urls;
 import org.junit.jupiter.api.Test;
 import pages.DisappearingElementsPage;
-
 import pages.MainPage;
 
 public class DisappearingElementsUiTest extends BaseTest {

@@ -7,7 +7,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class AddRemoveElementsPage extends BasePage {
     Random random = new Random();
 
-
     public void clickAddElementButton (int times) {
         for (int i = 0; i < times; i++) {
             $("button[onclick='addElement()']").click();

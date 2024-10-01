@@ -10,7 +10,6 @@ public class AddRemoveElementsUiTest extends BaseTest {
     MainPage mainPage = new MainPage();
     AddRemoveElementsPage addRemoveElementsPage = new AddRemoveElementsPage();
 
-
     @Test
 
     public void testAddAndRemoveElements() {
