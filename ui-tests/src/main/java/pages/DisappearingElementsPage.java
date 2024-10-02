@@ -1,23 +1,16 @@
 package pages;
 
-import com.codeborne.selenide.SelenideElement;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.codeborne.selenide.ElementsCollection;
+import io.qameta.allure.Step;
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class DisappearingElementsPage extends BasePage {
 
-    public List<SelenideElement> getElements() {
-        return $$("ul li").stream().collect(Collectors.toList());
-    }
-
-    public void refreshPage() {
-        refresh();
-    }
-
+    @Step("Ищем 5 элементов с {maxAttempts} попытками")
     public void findFiveElementsWithAttempts(int maxAttempts) {
         for (int attempts = 0; attempts < maxAttempts; attempts++) {
-            List<SelenideElement> elements = getElements();
+            ElementsCollection elements = $$("ul li");
 
             System.out.println("Attempt " + (attempts + 1) + ": Found " + elements.size() + " elements.");
 

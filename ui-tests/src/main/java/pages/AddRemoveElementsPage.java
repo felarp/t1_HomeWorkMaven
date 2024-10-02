@@ -1,12 +1,15 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import io.qameta.allure.Step;
+
 import java.util.Random;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AddRemoveElementsPage extends BasePage {
     Random random = new Random();
 
+    @Step("Кликаем по кнопке 'Add Element', делая это {times} раз")
     public void clickAddElementButton (int times) {
         for (int i = 0; i < times; i++) {
             $("button[onclick='addElement()']").click();
@@ -14,21 +17,21 @@ public class AddRemoveElementsPage extends BasePage {
         }
     }
 
+    @Step("Удаляем элементы, делая это {times} раз")
     public void deleteElements(int times) {
+        ElementsCollection buttons = $$(".added-manually");
         for (int i = 0; i < times; i++) {
-            ElementsCollection buttons = $$(".added-manually");
 
-            if (buttons.size() > 0) {
+            if (!buttons.isEmpty()) {
                 int randomIndex = random.nextInt(buttons.size());
                 buttons.get(randomIndex).click();
             } else {
                 break;
             }
 
-            int remaining = $$(".added-manually").size();
-            System.out.println("Remaining Delete buttons: " + remaining);
+            System.out.println("Remaining Delete buttons: " + $$(".added-manually").size());
 
-            $$(".added-manually").forEach(button -> System.out.println(button.getText()));
+            buttons.forEach(button -> System.out.println(button.getText()));
         }
     }
 }

@@ -1,6 +1,7 @@
 package tests;
 
 import enums.Urls;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import pages.InputsPage;
 import pages.MainPage;
@@ -14,8 +15,9 @@ public class InputsUiTest extends BaseTest {
     Random random = new Random();
 
     @Test
+    @Description("Тест для ввода случайного числа на странице ввода и проверки отображения значения.")
 
-public void inputsTest() {
+    public void inputsTest() {
     openBrowser(Urls.MAINPAGE.getUrl());
     mainPage.goToPage("inputs");
 

@@ -1,6 +1,7 @@
 package tests;
 
 import enums.Urls;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import pages.MainPage;
 import pages.NotificationMessagePage;
@@ -11,6 +12,7 @@ public class NotificationMessageUiTest extends BaseTest{
     NotificationMessagePage notificationMessagePage = new NotificationMessagePage();
 
     @Test
+    @Description("Тест для проверки сообщения уведомления и его успешного статуса.")
 
     public void notificationMessageTest() {
         openBrowser(Urls.MAINPAGE.getUrl());
