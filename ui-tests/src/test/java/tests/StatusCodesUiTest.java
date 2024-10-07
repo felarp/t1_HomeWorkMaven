@@ -15,7 +15,6 @@ public class StatusCodesUiTest extends BaseTest {
 
     @BeforeAll
     public static void setUp() {
-
         openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToPage("status_codes");
     }
@@ -53,3 +52,4 @@ public class StatusCodesUiTest extends BaseTest {
         statusCodePage.clickReturnLink();
     }
 }
+

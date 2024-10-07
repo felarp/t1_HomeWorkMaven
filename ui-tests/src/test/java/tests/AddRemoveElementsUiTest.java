@@ -1,22 +1,40 @@
 package tests;
 
 import enums.Urls;
-import io.qameta.allure.Description;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 import pages.AddRemoveElementsPage;
 import pages.MainPage;
+import java.util.Map;
+import java.util.stream.Stream;
 
 public class AddRemoveElementsUiTest extends BaseTest {
 
     MainPage mainPage = new MainPage();
     AddRemoveElementsPage addRemoveElementsPage = new AddRemoveElementsPage();
 
-    @Test
-    @Description("Тест на добавление и удаление элементов на странице добавления/удаления элементов.")
-    public void testAddAndRemoveElements() {
+    @TestFactory
+    @DisplayName("Параметризованные тесты на добавление и удаление элементов")
+    Stream<DynamicTest> testAddAndRemoveElements() {
         openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToPage("add_remove_elements/");
-        addRemoveElementsPage.clickAddElementButton(5);
-        addRemoveElementsPage.deleteElements(3);
+
+        Map<Integer, Integer> testData = Map.of(
+                2, 1,
+                5, 2,
+                1, 3
+        );
+
+        return testData.entrySet().stream().map(entry -> {
+            int additions = entry.getKey();
+            int deletions = entry.getValue();
+
+            return DynamicTest.dynamicTest("Добавляем: " + additions + ", Удаляем: " + deletions, () -> {
+                addRemoveElementsPage.clickAddElementButtonAndVerify(additions);
+                addRemoveElementsPage.deleteElementsAndVerify(deletions);
+            });
+        });
     }
 }
+

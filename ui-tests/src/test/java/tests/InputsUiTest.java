@@ -1,12 +1,16 @@
 package tests;
 
 import enums.Urls;
-import io.qameta.allure.Description;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
 import pages.InputsPage;
 import pages.MainPage;
-
+import java.util.List;
 import java.util.Random;
+import org.junit.jupiter.api.TestFactory;
+import java.util.stream.Stream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class InputsUiTest extends BaseTest {
 
@@ -14,22 +18,41 @@ public class InputsUiTest extends BaseTest {
     InputsPage inputsPage = new InputsPage();
     Random random = new Random();
 
-    @Test
-    @Description("Тест для ввода случайного числа на странице ввода и проверки отображения значения.")
+    @TestFactory
+    @DisplayName("Параметризованный тест ввода значений")
+    Stream<DynamicTest> testInputValues() {
+        openBrowser(Urls.MAINPAGE.getUrl());
+        mainPage.goToPage("inputs");
 
-    public void inputsTest() {
-    openBrowser(Urls.MAINPAGE.getUrl());
-    mainPage.goToPage("inputs");
+        List<String> invalidInputs = List.of(
+                "abc", "!@#", " 123", "123 ", "12.34", "   ", "abc123"
+        );
 
-    int randomNumber = 1 + random.nextInt(10000);
-    inputsPage.enterRandomNumber(randomNumber);
-    String value = inputsPage.getInputValue();
+        Stream<DynamicTest> randomTests = randomValuesTest(5);
+        Stream<DynamicTest> predefinedTests = invalidInputsTest(invalidInputs);
 
-        System.out.println("Значение введенного числа : " + value);
+        return Stream.concat(predefinedTests, randomTests);
+    }
+
+    private Stream<DynamicTest> randomValuesTest(int count) {
+        return Stream.generate(() -> {
+            int randomInt = random.nextInt(1000);
+            String randomNumber = String.valueOf(randomInt);
+            return DynamicTest.dynamicTest("Случайный ввод: " + randomNumber, () -> {
+                inputsPage.enterValue(randomNumber);
+                assertEquals(randomNumber, inputsPage.getInputValue());
+            });
+        }).limit(count);
+    }
+
+    private Stream<DynamicTest> invalidInputsTest(List<String> invalidInputs) {
+        return invalidInputs.stream()
+                .map(input -> DynamicTest.dynamicTest(
+                        "Ввод: " + input,
+                        () -> assertFalse(inputsPage.checkInput(input))
+                ));
     }
 }
-
-
 
 
 

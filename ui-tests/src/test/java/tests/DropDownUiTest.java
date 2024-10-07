@@ -7,7 +7,7 @@ import pages.DropdownPage;
 import pages.MainPage;
 
 
-public class DropDownUiTest extends BaseTest{
+public class DropDownUiTest extends BaseTest {
 
     MainPage mainPage = new MainPage();
     DropdownPage dropdownPage = new DropdownPage();
@@ -20,5 +20,5 @@ public class DropDownUiTest extends BaseTest{
         dropdownPage.selectFirstOption();
         dropdownPage.selectSecondOption();
     }
-
 }
+

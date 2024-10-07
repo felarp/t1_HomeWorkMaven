@@ -2,7 +2,8 @@ package tests;
 
 import enums.Urls;
 import io.qameta.allure.Description;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import pages.CheckBoxesPage;
 import pages.MainPage;
 
@@ -11,16 +12,23 @@ public class CheckBoxesUiTest extends BaseTest {
     MainPage mainPage = new MainPage();
     CheckBoxesPage checkBoxesPage = new CheckBoxesPage();
 
-    @Test
-    @Description("Тест на проверку и вывод состояния чекбоксов на странице чекбоксов.")
-    public void checkboxesTest() {
-
+    @ParameterizedTest
+    @CsvSource({
+            "checkbox1, checkbox2",
+            "checkbox2, checkbox1"
+    })
+    @Description("Параметризированный тест для проверки состояния чекбоксов")
+    public void checkboxesTest(String firstCheckbox, String secondCheckbox) {
         openBrowser(Urls.MAINPAGE.getUrl());
 
         mainPage.goToPage("checkboxes");
-        checkBoxesPage.chooseAndPrintCheckboxes();
 
+        checkBoxesPage.clickAndCheckState(firstCheckbox);
+
+        checkBoxesPage.clickAndCheckState(secondCheckbox);
 
 
     }
 }
+
+

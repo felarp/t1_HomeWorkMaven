@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NotificationMessagePage extends BasePage {
 
@@ -16,14 +17,18 @@ public class NotificationMessagePage extends BasePage {
         do {
             clickLink.click();
             actualMessage = notification.text().trim();
-            System.out.println("Received Notification: " + actualMessage);
+            System.out.println("Получено уведомление: " + actualMessage);
 
             if (!actualMessage.contains(expectedMessage)) {
+                // Закрываем всплывающее сообщение, если оно не совпадает с ожидаемым
                 $$(".close").first().click();
             }
         } while (!actualMessage.contains(expectedMessage));
+
+        assertTrue(actualMessage.contains(expectedMessage), "Ожидалось сообщение: " + expectedMessage);
     }
 }
+
 
 
 
