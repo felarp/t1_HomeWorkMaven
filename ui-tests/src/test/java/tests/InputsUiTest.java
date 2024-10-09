@@ -1,6 +1,5 @@
 package tests;
 
-import enums.Urls;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import pages.InputsPage;
@@ -21,7 +20,7 @@ public class InputsUiTest extends BaseTest {
     @TestFactory
     @DisplayName("Параметризованный тест ввода значений")
     Stream<DynamicTest> testInputValues() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("inputs");
 
         List<String> invalidInputs = List.of(

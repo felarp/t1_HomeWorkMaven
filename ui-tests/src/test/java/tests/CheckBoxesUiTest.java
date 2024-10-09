@@ -1,11 +1,12 @@
 package tests;
 
-import enums.Urls;
+
 import io.qameta.allure.Description;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import pages.CheckBoxesPage;
 import pages.MainPage;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 
 public class CheckBoxesUiTest extends BaseTest {
 
@@ -14,21 +15,21 @@ public class CheckBoxesUiTest extends BaseTest {
 
     @ParameterizedTest
     @CsvSource({
-            "checkbox1, checkbox2",
-            "checkbox2, checkbox1"
+            "2, 1",
     })
-    @Description("Параметризированный тест для проверки состояния чекбоксов")
-    public void checkboxesTest(String firstCheckbox, String secondCheckbox) {
-        openBrowser(Urls.MAINPAGE.getUrl());
+    @Description("Проверка нажатия на чекбоксы в разном порядке и вывод их состояния.")
+    public void checkboxesTest(int firstCheckbox, int secondCheckbox) {
 
         mainPage.goToPage("checkboxes");
 
-        checkBoxesPage.clickAndCheckState(firstCheckbox);
-
-        checkBoxesPage.clickAndCheckState(secondCheckbox);
-
-
+        checkBoxesPage.toggleCheckboxes(firstCheckbox, secondCheckbox);
     }
 }
+
+
+
+
+
+
 
 

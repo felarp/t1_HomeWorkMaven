@@ -1,6 +1,5 @@
 package tests;
 
-import enums.Urls;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import pages.DisappearingElementsPage;
@@ -14,7 +13,7 @@ public class DisappearingElementsUiTest extends BaseTest {
     @Test
     @Description("Тест на поиск пяти элементов с попытками на странице исчезающих элементов.")
     public void disappearingElementsTest() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("disappearing_elements");
         disappearingElementsPage.findFiveElementsWithAttempts(10);
 
