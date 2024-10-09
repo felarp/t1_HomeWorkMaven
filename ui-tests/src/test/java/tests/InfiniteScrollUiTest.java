@@ -14,7 +14,7 @@ public class InfiniteScrollUiTest extends BaseTest {
     @Test
     @Description("Тест проверяет, что текст 'Eius' становится видимым при прокрутке.")
     public void testScrollToEiusText() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("infinite_scroll");
 
         infiniteScrollPage.scrollUntilTextIsVisible("Eius");

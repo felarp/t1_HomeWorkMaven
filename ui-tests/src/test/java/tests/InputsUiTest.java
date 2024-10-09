@@ -21,7 +21,6 @@ public class InputsUiTest extends BaseTest {
     @TestFactory
     @DisplayName("Параметризованный тест ввода значений")
     Stream<DynamicTest> testInputValues() {
-        openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToPage("inputs");
 
         List<String> invalidInputs = List.of(

@@ -16,7 +16,7 @@ public class DragAndDropUiTest extends BaseTest {
     @Description("Тест проверяет функциональность перетаскивания элемента A на элемент B на странице Drag and Drop. " +
             "После перетаскивания проверяется, что элементы поменялись местами.")
     public void DragAndDropTest() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("drag_and_drop");
 
         dragAndDropPage.performDragAndDrop();

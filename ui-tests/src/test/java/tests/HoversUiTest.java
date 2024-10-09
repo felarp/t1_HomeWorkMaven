@@ -22,7 +22,6 @@ public class HoversUiTest extends BaseTest {
     })
     @Description("Параметризованный тест для проверки подписей при наведении на изображения")
     public void hoverOverImagesTest(int index, String expectedCaption) {
-        openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToPage("hovers");
 
         hoversPage.hoverAndCheckCaption(index, expectedCaption);

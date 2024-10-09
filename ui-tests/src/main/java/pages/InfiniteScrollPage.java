@@ -14,7 +14,8 @@ public class InfiniteScrollPage extends BasePage {
         SelenideElement textElement;
 
         while (true) {
-            textElement = getTextElement(text);
+
+            textElement = $(By.xpath("//*[contains(text(),'" + text + "') and ancestor::div[contains(@class,'jscroll-inner')]]"));
 
             if (textElement.exists() && textElement.isDisplayed()) {
                 break;
@@ -24,17 +25,14 @@ public class InfiniteScrollPage extends BasePage {
             sleep(500);
         }
     }
-    @Step("Поиск элемента с текстом '{text}' на странице.")
-    public SelenideElement getTextElement(String text) {
-        return $(By.xpath("//*[contains(text(),'" + text + "') and ancestor::div[contains(@class,'jscroll-inner')]]"));
-    }
 
     @Step("Проверка, что текст '{text}' отображается на странице.")
     public void verifyTextIsDisplayed(String text) {
-        SelenideElement textElement = getTextElement(text);
+        SelenideElement textElement = $(By.xpath("//*[contains(text(),'" + text + "') and ancestor::div[contains(@class,'jscroll-inner')]]"));
         assertTrue(textElement.isDisplayed(), "Текст '" + text + "' не отображается.");
     }
 }
+
 
 
 

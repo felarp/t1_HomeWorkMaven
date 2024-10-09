@@ -15,7 +15,7 @@ public class DropDownUiTest extends BaseTest {
     @Test
     @Description("Тест для выбора опций в выпадающем списке на соответствующей странице.")
     public void dropdownOptionsTest() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("dropdown");
         dropdownPage.selectFirstOption();
         dropdownPage.selectSecondOption();

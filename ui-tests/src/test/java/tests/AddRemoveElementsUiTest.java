@@ -1,6 +1,5 @@
 package tests;
 
-import enums.Urls;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -17,7 +16,7 @@ public class AddRemoveElementsUiTest extends BaseTest {
     @TestFactory
     @DisplayName("Параметризованные тесты на добавление и удаление элементов")
     Stream<DynamicTest> testAddAndRemoveElements() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("add_remove_elements/");
 
         Map<Integer, Integer> testData = Map.of(

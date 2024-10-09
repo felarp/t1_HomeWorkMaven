@@ -14,7 +14,7 @@ public class NotificationMessageUiTest extends BaseTest {
     @RepeatedTest(5)
     @Description("Тест для проверки сообщения уведомления и его успешного статуса.")
     public void notificationMessageTest() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("notification_message");
 
         String expectedMessage = "Action successful";

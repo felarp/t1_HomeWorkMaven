@@ -19,7 +19,6 @@ public class CheckBoxesUiTest extends BaseTest {
     })
     @Description("Параметризированный тест для проверки состояния чекбоксов")
     public void checkboxesTest(String firstCheckbox, String secondCheckbox) {
-        openBrowser(Urls.MAINPAGE.getUrl());
 
         mainPage.goToPage("checkboxes");
 

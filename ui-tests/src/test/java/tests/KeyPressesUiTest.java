@@ -13,7 +13,7 @@ public class KeyPressesUiTest extends BaseTest {
     @Test
     @Description("Тест на нажатие клавиш на странице Key Presses и проверка отображаемого текста.")
     public void testKeyPresses() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+
         mainPage.goToPage("key_presses");
 
         String[] keys = {

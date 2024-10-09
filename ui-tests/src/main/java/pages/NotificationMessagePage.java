@@ -20,7 +20,7 @@ public class NotificationMessagePage extends BasePage {
             System.out.println("Получено уведомление: " + actualMessage);
 
             if (!actualMessage.contains(expectedMessage)) {
-                // Закрываем всплывающее сообщение, если оно не совпадает с ожидаемым
+
                 $$(".close").first().click();
             }
         } while (!actualMessage.contains(expectedMessage));
