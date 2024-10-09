@@ -10,7 +10,7 @@ import io.qameta.allure.Step;
 
 public class ContextMenuPage extends BasePage {
 
-    private SelenideElement contextBox = $("#hot-spot");
+    private final SelenideElement contextBox = $("#hot-spot");
 
     @Step("Клик правой кнопкой мыши на области")
     public ContextMenuPage rightClickContextMenu() {

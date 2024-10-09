@@ -2,13 +2,12 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.*;
 
         public class DragAndDropPage {
-            private SelenideElement columnA = $("#column-a");
-            private SelenideElement columnB = $("#column-b");
+            private final SelenideElement columnA = $("#column-a");
+            private final SelenideElement columnB = $("#column-b");
 
             @Step("Перетаскивание элемента A на элемент B")
             public void performDragAndDrop() {

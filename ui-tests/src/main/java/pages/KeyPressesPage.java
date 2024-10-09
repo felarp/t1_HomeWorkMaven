@@ -3,7 +3,6 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.*;
 import org.openqa.selenium.Keys;
@@ -11,44 +10,40 @@ import org.openqa.selenium.Keys;
 
 public class KeyPressesPage extends BasePage {
 
-    private SelenideElement inputField = $("#target");
-    private SelenideElement resultText = $("#result");
+    private final SelenideElement inputField = $("#target");
+    private final SelenideElement resultText = $("#result");
 
-    @Step("Открытие страницы Key Presses")
-    public void openPage() {
-        open("/key_presses");
-    }
 
     @Step("Нажатие клавиши '{key}' и проверка отображаемого текста")
     public void pressKeyAndCheck(String key, String expectedText) {
-
         inputField.click();
 
         inputField.clear();
 
-        if (key.equals("CONTROL") || key.equals("ALT") || key.equals("TAB")) {
-            actions().keyDown(key.equals("CONTROL") ? Keys.CONTROL :
-                            key.equals("ALT") ? Keys.ALT :
-                                    Keys.TAB)
-                    .perform();
+        switch (key.toUpperCase()) {
+            case "CONTROL":
+                actions().sendKeys(Keys.CONTROL).perform();
+                break;
+            case "ALT":
+                actions().sendKeys(Keys.ALT).perform();
+                break;
+            case "TAB":
+                actions().sendKeys(Keys.TAB).perform();
+                break;
+            case "ENTER":
+                actions().sendKeys(Keys.ENTER).perform();
+                break;
+            default:
 
-            actions().sendKeys(inputField, Keys.ENTER).perform();
-
-            resultText.shouldHave(text(expectedText));
-            actions().keyUp(key.equals("CONTROL") ? Keys.CONTROL :
-                            key.equals("ALT") ? Keys.ALT :
-                                    Keys.TAB)
-                    .perform();
-        } else {
-
-            actions().sendKeys(inputField, key).perform();
-
-            actions().sendKeys(inputField, Keys.ENTER).perform();
-
-            resultText.shouldHave(text(expectedText));
+                actions().sendKeys(inputField, key).perform();
+                break;
         }
+
+        resultText.shouldHave(text(expectedText));
     }
 }
+
+
 
 
 

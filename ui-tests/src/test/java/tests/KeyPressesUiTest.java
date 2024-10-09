@@ -10,20 +10,17 @@ import pages.MainPage;
 public class KeyPressesUiTest extends BaseTest {
     MainPage mainPage = new MainPage();
     KeyPressesPage keyPressesPage = new KeyPressesPage();
-
     @Test
-    @Description("Тест на нажатие клавиш на странице Key Presses и проверка всплывающего текста.")
+    @Description("Тест на нажатие клавиш на странице Key Presses и проверка отображаемого текста.")
     public void testKeyPresses() {
         openBrowser(Urls.MAINPAGE.getUrl());
         mainPage.goToPage("key_presses");
-
 
         String[] keys = {
                 "A", "B", "C", "D", "E",
                 "F", "G", "H", "I", "J",
                 "ENTER", "CONTROL", "ALT", "TAB"
         };
-
         String[] expectedResults = {
                 "You entered: A", "You entered: B", "You entered: C",
                 "You entered: D", "You entered: E", "You entered: F",
@@ -37,6 +34,7 @@ public class KeyPressesUiTest extends BaseTest {
         }
     }
 }
+
 
 
 
