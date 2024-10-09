@@ -1,46 +1,41 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.*;
 
+        public class DragAndDropPage {
+            private SelenideElement columnA = $("#column-a");
+            private SelenideElement columnB = $("#column-b");
 
-public class DragAndDropPage {
-    private SelenideElement columnA = $("#column-a");
-    private SelenideElement columnB = $("#column-b");
+            @Step("Перетаскивание элемента A на элемент B")
+            public void performDragAndDrop() {
 
-    public void performDragAndDrop() {
+                actions().clickAndHold(columnA)
+                        .moveToElement(columnB)
+                        .release()
+                        .build()
+                        .perform();
 
-        int xOffset = columnB.getLocation().getX() - columnA.getLocation().getX() + columnB.getSize().getWidth() / 2;
-        int yOffset = columnB.getLocation().getY() - columnA.getLocation().getY() + columnB.getSize().getHeight() / 2;
-
-        actions().clickAndHold(columnA)
-                .moveByOffset(xOffset, yOffset)
-                .release()
-                .build()
-                .perform();
-
-
-        columnA.shouldHave(text("B"));
-        columnB.shouldHave(text("A"));
-    }
-
-    public void verifyColumnsSwapped() {
-        String textInColumnA = columnA.getText();
-        String textInColumnB = columnB.getText();
+                verifyColumnsSwapped();
+            }
+            @Step("Проверка, что элементы поменялись местами")
+            public void verifyColumnsSwapped() {
+                String textInColumnA = columnA.getText();
+                String textInColumnB = columnB.getText();
 
 
-        if (textInColumnA.equals("A") && textInColumnB.equals("B")) {
-            System.out.println("Элементы поменялись местами: " + textInColumnA + " и " + textInColumnB);
-        } else {
-            throw new AssertionError("Элементы не поменялись местами. " +
-                    "Ожидалось: Column A - B, Column B - A. " +
-                    "Фактически: Column A - " + textInColumnA + ", Column B - " + textInColumnB);
+                if (textInColumnA.equals("B") && textInColumnB.equals("A")) {
+                    System.out.println("Элементы успешно поменялись местами: Column A = B, Column B = A");
+                } else {
+                    throw new AssertionError("Элементы не поменялись местами. " +
+                            "Ожидалось: Column A - B, Column B - A. " +
+                            "Фактически: Column A - " + textInColumnA + ", Column B - " + textInColumnB);
+                }
+            }
         }
-    }
-}
 
 
 
