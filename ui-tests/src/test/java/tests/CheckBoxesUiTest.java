@@ -1,12 +1,11 @@
 package tests;
 
-
-import io.qameta.allure.Description;
 import pages.CheckBoxesPage;
 import pages.MainPage;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.DisplayName;
+import java.util.stream.Stream;
 
 public class CheckBoxesUiTest extends BaseTest {
 
@@ -14,17 +13,25 @@ public class CheckBoxesUiTest extends BaseTest {
     CheckBoxesPage checkBoxesPage = new CheckBoxesPage();
 
     @ParameterizedTest
-    @CsvSource({
-            "2, 1",
-    })
-    @Description("Проверка нажатия на чекбоксы в разном порядке и вывод их состояния.")
-    public void checkboxesTest(int firstCheckbox, int secondCheckbox) {
+    @MethodSource("checkboxOrderProvider")
+    @DisplayName("Тест на проверку и вывод состояния чекбоксов на странице чекбоксов с разными порядками нажатия")
+    public void checkboxesTest(String order) {
 
         mainPage.goToPage("checkboxes");
 
-        checkBoxesPage.toggleCheckboxes(firstCheckbox, secondCheckbox);
+        if (order.equals("1-2")) {
+            checkBoxesPage.chooseAndPrintCheckboxes();
+        } else if (order.equals("2-1")) {
+            checkBoxesPage.checkAndToggleCheckbox(checkBoxesPage.getCheckbox2(), "Checkbox 2");
+            checkBoxesPage.checkAndToggleCheckbox(checkBoxesPage.getCheckbox1(), "Checkbox 1");
+        }
+    }
+
+    private static Stream<String> checkboxOrderProvider() {
+        return Stream.of("1-2", "2-1");
     }
 }
+
 
 
 
