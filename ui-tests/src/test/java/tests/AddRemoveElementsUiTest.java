@@ -1,12 +1,13 @@
 package tests;
 
-import org.junit.jupiter.api.DisplayName;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import pages.AddRemoveElementsPage;
 import pages.MainPage;
-import java.util.Map;
+import java.util.List;
 import java.util.stream.Stream;
+
 
 public class AddRemoveElementsUiTest extends BaseTest {
 
@@ -14,26 +15,37 @@ public class AddRemoveElementsUiTest extends BaseTest {
     AddRemoveElementsPage addRemoveElementsPage = new AddRemoveElementsPage();
 
     @TestFactory
-    @DisplayName("Параметризованные тесты на добавление и удаление элементов")
-    Stream<DynamicTest> testAddAndRemoveElements() {
-
+    @Description("Динамический тест на добавление и удаление элементов на странице добавления/удаления элементов.")
+    public Stream<DynamicTest> testAddAndRemoveElements() {
         mainPage.goToPage("add_remove_elements/");
 
-        Map<Integer, Integer> testData = Map.of(
-                2, 1,
-                5, 2,
-                1, 3
+        List<TestParams> testParams = List.of(
+                new TestParams(2, 1),
+                new TestParams(5, 2),
+                new TestParams(1, 3)
         );
 
-        return testData.entrySet().stream().map(entry -> {
-            int additions = entry.getKey();
-            int deletions = entry.getValue();
+        return testParams.stream()
+                .map(params -> DynamicTest.dynamicTest(
+                        "Добавить " + params.added + " элементов и удалить " + params.removed + " элементов",
+                        () -> {
+                            addRemoveElementsPage.clickAddElementButton(params.added);
+                            addRemoveElementsPage.deleteElements(params.removed);
+                        }
+                ));
+    }
 
-            return DynamicTest.dynamicTest("Добавляем: " + additions + ", Удаляем: " + deletions, () -> {
-                addRemoveElementsPage.clickAddElementButtonAndVerify(additions);
-                addRemoveElementsPage.deleteElementsAndVerify(deletions);
-            });
-        });
+    private static class TestParams {
+        int added;
+        int removed;
+
+        TestParams(int added, int removed) {
+            this.added = added;
+            this.removed = removed;
+        }
     }
 }
+
+
+
 

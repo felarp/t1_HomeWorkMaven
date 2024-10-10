@@ -1,6 +1,6 @@
 package tests;
 
-import org.junit.jupiter.api.DisplayName;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.DynamicTest;
 import pages.InputsPage;
 import pages.MainPage;
@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Random;
 import org.junit.jupiter.api.TestFactory;
 import java.util.stream.Stream;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class InputsUiTest extends BaseTest {
 
@@ -18,40 +16,37 @@ public class InputsUiTest extends BaseTest {
     Random random = new Random();
 
     @TestFactory
-    @DisplayName("Параметризованный тест ввода значений")
-    Stream<DynamicTest> testInputValues() {
+    @Description("Повторяем тест 10 раз с различными случайными значениями и выполняем негативные тесты.")
+    public Stream<DynamicTest> inputsTestRepeated() {
 
         mainPage.goToPage("inputs");
 
-        List<String> invalidInputs = List.of(
-                "abc", "!@#", " 123", "123 ", "12.34", "   ", "abc123"
+
+        List<Integer> randomNumbers = random.ints(10, 1, 10001).boxed().toList();
+
+
+        Stream<DynamicTest> positiveTests = randomNumbers.stream()
+                .map(number -> DynamicTest.dynamicTest(
+                        "Тест с числом: " + number,
+                        () -> inputsPage.testNumber(number)
+                ));
+
+
+        Stream<DynamicTest> negativeTests = Stream.of(
+                DynamicTest.dynamicTest("Попытка ввести латинские буквы", () -> inputsPage.testInvalidInput("abcDEF", 0)),
+                DynamicTest.dynamicTest("Попытка ввести спецсимволы", () -> inputsPage.testInvalidInput("!@#$%^&*()", 0)),
+                DynamicTest.dynamicTest("Попытка ввести пробелы до и после числа", () -> inputsPage.testInvalidInput("   12345   ", 12345))
         );
 
-        Stream<DynamicTest> randomTests = randomValuesTest(5);
-        Stream<DynamicTest> predefinedTests = invalidInputsTest(invalidInputs);
-
-        return Stream.concat(predefinedTests, randomTests);
-    }
-
-    private Stream<DynamicTest> randomValuesTest(int count) {
-        return Stream.generate(() -> {
-            int randomInt = random.nextInt(1000);
-            String randomNumber = String.valueOf(randomInt);
-            return DynamicTest.dynamicTest("Случайный ввод: " + randomNumber, () -> {
-                inputsPage.enterValue(randomNumber);
-                assertEquals(randomNumber, inputsPage.getInputValue());
-            });
-        }).limit(count);
-    }
-
-    private Stream<DynamicTest> invalidInputsTest(List<String> invalidInputs) {
-        return invalidInputs.stream()
-                .map(input -> DynamicTest.dynamicTest(
-                        "Ввод: " + input,
-                        () -> assertFalse(inputsPage.checkInput(input))
-                ));
+        return Stream.concat(positiveTests, negativeTests);
     }
 }
+
+
+
+
+
+
 
 
 
