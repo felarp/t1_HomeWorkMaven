@@ -14,14 +14,12 @@ public class InfiniteScrollPage extends BasePage {
         SelenideElement textElement;
 
         while (true) {
-
             textElement = $(By.xpath("//*[contains(text(),'" + text + "') and ancestor::div[contains(@class,'jscroll-inner')]]"));
 
             if (textElement.exists() && textElement.isDisplayed()) {
                 break;
             }
             actions().sendKeys(Keys.PAGE_DOWN).perform();
-
             sleep(500);
         }
     }

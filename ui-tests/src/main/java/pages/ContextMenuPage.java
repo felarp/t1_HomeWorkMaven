@@ -36,8 +36,7 @@ public class ContextMenuPage extends BasePage {
     }
     @Step("Проверка и принятие JS Alert")
     public ContextMenuPage acceptAndVerifyAlert(String expectedText) {
-        verifyAlertText(expectedText);
-        acceptAlert();
+        verifyAlertText(expectedText).acceptAlert();
         return this;
     }
 }

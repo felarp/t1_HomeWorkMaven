@@ -1,11 +1,14 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
 import io.qameta.allure.Step;
-import static com.codeborne.selenide.Selenide.*;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
+
+import java.util.Arrays;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.actions;
 
 
 public class KeyPressesPage extends BasePage {
@@ -15,7 +18,7 @@ public class KeyPressesPage extends BasePage {
 
 
     @Step("Нажатие клавиши '{key}' и проверка отображаемого текста")
-    public void pressKeyAndCheck(String key, String expectedText) {
+    public void pressKeyAndCheck(String key) {
         inputField.click();
 
         inputField.clear();
@@ -34,12 +37,16 @@ public class KeyPressesPage extends BasePage {
                 actions().sendKeys(Keys.ENTER).perform();
                 break;
             default:
-
                 actions().sendKeys(inputField, key).perform();
                 break;
         }
 
-        resultText.shouldHave(text(expectedText));
+        Assertions.assertTrue(resultText.getText().contains(key), "Всплывающий текст не соответствует");
+    }
+
+    @Step("Проверка коллекции клавиш на нажатие")
+    public void checkListKeys(String[] keys) {
+        Arrays.stream(keys).forEach(this::pressKeyAndCheck);
     }
 }
 

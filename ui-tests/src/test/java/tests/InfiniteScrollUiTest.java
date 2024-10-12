@@ -1,11 +1,9 @@
 package tests;
 
-import enums.Urls;
-import pages.InfiniteScrollPage;
-import pages.MainPage;
-
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
+import pages.InfiniteScrollPage;
+import pages.MainPage;
 
 public class InfiniteScrollUiTest extends BaseTest {
     MainPage mainPage = new MainPage();

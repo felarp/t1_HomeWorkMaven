@@ -14,7 +14,6 @@ public class ContextMenuUiTest extends BaseTest {
     @Test
     @Description("Тест проверяет, что при правом клике на области контекстного меню появляется JS Alert с ожидаемым текстом")
     public void testContextMenuAlert() {
-
         mainPage.goToPage("context_menu");
 
         contextMenuPage
