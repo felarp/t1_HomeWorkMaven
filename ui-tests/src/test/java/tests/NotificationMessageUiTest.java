@@ -15,7 +15,6 @@ public class NotificationMessageUiTest extends BaseTest {
     public void notificationMessageTest() {
 
         mainPage.goToPage("notification_message");
-
         String expectedMessage = "Action successful";
         notificationMessagePage.clickUntilSuccess(expectedMessage);
     }

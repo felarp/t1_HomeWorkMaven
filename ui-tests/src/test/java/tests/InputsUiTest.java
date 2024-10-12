@@ -21,16 +21,13 @@ public class InputsUiTest extends BaseTest {
 
         mainPage.goToPage("inputs");
 
-
         List<Integer> randomNumbers = random.ints(10, 1, 10001).boxed().toList();
-
 
         Stream<DynamicTest> positiveTests = randomNumbers.stream()
                 .map(number -> DynamicTest.dynamicTest(
                         "Тест с числом: " + number,
                         () -> inputsPage.testNumber(number)
                 ));
-
 
         Stream<DynamicTest> negativeTests = Stream.of(
                 DynamicTest.dynamicTest("Попытка ввести латинские буквы", () -> inputsPage.testInvalidInput("abcDEF", 0)),

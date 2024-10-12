@@ -1,16 +1,20 @@
 package listeners;
 
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Attachment;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 
 public class AllureListener implements TestWatcher, TestExecutionExceptionHandler {
 
+    public AllureListener(){
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
+    }
 
     @Override
     public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {

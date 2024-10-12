@@ -1,19 +1,12 @@
 package tests;
 
-import com.codeborne.selenide.Selenide;
-import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.Description;
-import listeners.AllureListener;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import pages.AddRemoveElementsPage;
 import pages.MainPage;
-
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.stream.Stream;
-
 
 public class AddRemoveElementsUiTest extends BaseTest {
 
@@ -28,6 +21,7 @@ public class AddRemoveElementsUiTest extends BaseTest {
                 {5,2},
                 {1,3}
         };
+        mainPage.goToPage("add_remove_elements/");
         return Arrays.stream(params).map(param-> {
             int add = param[0];
             int remove = param[1];
@@ -39,13 +33,9 @@ public class AddRemoveElementsUiTest extends BaseTest {
     }
 
     public void addRemoveElements(int addClickTimes, int removeClickTimes) {
-        setUp();
-        mainPage.goToPage("add_remove_elements/");
         addRemoveElementsPage.clickAddElementButton(addClickTimes);
         addRemoveElementsPage.deleteElements(removeClickTimes);
-        close();
     }
-
 }
 
 

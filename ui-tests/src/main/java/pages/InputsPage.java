@@ -1,9 +1,9 @@
 package pages;
 
+import assertions.CommonAssertion;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InputsPage extends BasePage {
 
@@ -26,25 +26,20 @@ public class InputsPage extends BasePage {
         return inputField.getValue();
     }
 
-    @Step("Проверяем значение: {expectedValue}")
-    public void verifyInputValue(int expectedValue) {
-        assertEquals(String.valueOf(expectedValue), getInputValue(),
-                String.format("Ожидалось: %d, но было: %s", expectedValue, getInputValue()));
-    }
 
     @Step("Проверяем, что поле пустое или содержит: {expectedNumber}")
     public void verifyInputIsEmptyOrContains(int expectedNumber) {
         String actualValue = getInputValue();
         if (!actualValue.isEmpty()) {
-            assertEquals(String.valueOf(expectedNumber), actualValue,
-                    String.format("Ожидалось: %d, но было: %s", expectedNumber, actualValue));
+            CommonAssertion.assertEquals(String.valueOf(expectedNumber),actualValue, String.format("Ожидалось: %d, но было: %s", expectedNumber, actualValue));
+
         }
     }
 
     @Step("Тестируем ввод значения: {number}")
     public void testNumber(int number) {
         enterNumber(number);
-        verifyInputValue(number);
+        CommonAssertion.assertEquals(String.valueOf(number), getInputValue(),String.format("Ожидалось: %d, но было: %s", number, getInputValue()));
     }
 
     @Step("Тестируем ввод невалидных значений")

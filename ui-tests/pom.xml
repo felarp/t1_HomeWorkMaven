@@ -16,11 +16,11 @@
         <aspectj.version>1.9.19</aspectj.version>
     </properties>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>io.qameta.allure</groupId>-->
-<!--            <artifactId>allure-selenide</artifactId>-->
-<!--            <version>${allure.junit5.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure.junit5.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>

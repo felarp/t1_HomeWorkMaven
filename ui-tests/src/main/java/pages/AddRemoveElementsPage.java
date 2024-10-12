@@ -17,7 +17,7 @@ public class AddRemoveElementsPage extends BasePage {
         for (int i = 0; i < times; i++) {
             $("button[onclick='addElement()']").shouldBe(Condition.visible).click();
         }
-        verifyVisibleElementsCount($$(".added-manually").size()); // Проверяем в конце добавления
+        verifyVisibleElementsCount($$(".added-manually").size());
     }
 
     @Step("Удаляем элементы, делая это {times} раз")
