@@ -11,6 +11,8 @@
         <module>ui-tests</module>
     </modules>
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <rest-assured.version>5.0.0</rest-assured.version>
         <jackson-databind.version>2.18.0-rc1</jackson-databind.version>
         <junit.jupiter.version>5.10.3</junit.jupiter.version>
@@ -23,6 +25,7 @@
                 <artifactId>junit-jupiter</artifactId>
                 <version>${junit.jupiter.version}</version>
             </dependency>
+
 
             <dependency>
                 <groupId>io.qameta.allure</groupId>

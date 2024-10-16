@@ -1,5 +1,6 @@
 package URLs;
 
 public class Urls {
-    String LOGIN = "/login";
+    public static final String LOGIN = "/login";
+    public static final String PRODUCTS = "/products";
 }

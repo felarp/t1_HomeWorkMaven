@@ -3,6 +3,7 @@ package tests;
 import configuration.WebDriverManager;
 import enums.Urls;
 import listeners.AllureListener;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,13 +11,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(AllureListener.class)
 public class BaseTest {
+    static WebDriverManager driver = new WebDriverManager();
+    public static ProjectConfig config;
 
     @BeforeEach
     public void setUp() {
-        openBrowser(Urls.MAINPAGE.getUrl());
+        config = ConfigFactory.create(ProjectConfig.class);
+        String baseUrl = config.baseUrl();
+        openBrowser(baseUrl +Urls.MAINPAGE.getUrl());
     }
 
-    static WebDriverManager driver = new WebDriverManager();
 
 
     public static void openBrowser(String url) {

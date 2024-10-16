@@ -1,3 +1,4 @@
+import URLs.Urls;
 import accertions.HttpAssertions;
 import dto.*;
 import io.restassured.response.Response;
@@ -17,7 +18,7 @@ class UserDataApiTest extends BaseApiTest {
 
     @Test
     public void testRegisteredUser() {
-        Response response = restApiBuilder.post("/login", user);
+        Response response = restApiBuilder.post(Urls.LOGIN, user);
         new HttpAssertions(response,Token.class)
                 .statusCode(200)
                 .assertionsJsonPathValueNotEmpty("access_token");
@@ -26,7 +27,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testUnregisteredUser() {
         User unRegisteredUser = new User("unregistered", "user");
-        Response response = restApiBuilder.post("/login", unRegisteredUser);
+        Response response = restApiBuilder.post(Urls.LOGIN, unRegisteredUser);
         new HttpAssertions(response, Message.class)
                 .statusCode(401)
                 .assertionsMessage("Invalid credentials");
@@ -44,7 +45,7 @@ class UserDataApiTest extends BaseApiTest {
 
     @Test
     public void testGetProductList() {
-        Response response = restApiBuilder.get("/products");
+        Response response = restApiBuilder.get(Urls.PRODUCTS);
 
         new HttpAssertions(response, Product.class, true)
                 .statusCode(200)
