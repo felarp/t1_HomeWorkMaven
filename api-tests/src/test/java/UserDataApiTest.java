@@ -12,12 +12,12 @@ class UserDataApiTest extends BaseApiTest {
     @BeforeAll
     public static void initializeUserData() {
         user = new User("string", "string");
-        token = apiProvider.post("/login", user).as(Token.class).getAccessToken();
+        token = restApiBuilder.post("/login", user).as(Token.class).getAccessToken();
     }
 
     @Test
     public void testRegisteredUser() {
-        Response response = apiProvider.post("/login", user);
+        Response response = restApiBuilder.post("/login", user);
         new HttpAssertions(response,Token.class)
                 .statusCode(200)
                 .assertionsJsonPathValueNotEmpty("access_token");
@@ -26,7 +26,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testUnregisteredUser() {
         User unRegisteredUser = new User("unregistered", "user");
-        Response response = apiProvider.post("/login", unRegisteredUser);
+        Response response = restApiBuilder.post("/login", unRegisteredUser);
         new HttpAssertions(response, Message.class)
                 .statusCode(401)
                 .assertionsMessage("Invalid credentials");
@@ -36,7 +36,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testIncorrectPasswordUser() {
         User user = new User("string", "strin");
-        Response response = apiProvider.post("/login", user);
+        Response response = restApiBuilder.post("/login", user);
         new HttpAssertions(response, Message.class)
                 .statusCode(401)
                 .assertionsMessage("Invalid credentials");
@@ -44,7 +44,7 @@ class UserDataApiTest extends BaseApiTest {
 
     @Test
     public void testGetProductList() {
-        Response response = apiProvider.get("/products");
+        Response response = restApiBuilder.get("/products");
 
         new HttpAssertions(response, Product.class, true)
                 .statusCode(200)
@@ -54,7 +54,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testGetSpecificProduct() {
         CartRequest requestBody = new CartRequest(1, 2);
-        Response response = apiProvider.get("/products/" + requestBody.getProductId());
+        Response response = restApiBuilder.get("/products/" + requestBody.getProductId());
         new HttpAssertions(response, Product.class, true)
                 .statusCode(200)
                 .assertListNotEmpty();
@@ -62,7 +62,7 @@ class UserDataApiTest extends BaseApiTest {
 
     @Test
     public void testGetUnrealIdProduct() {
-        Response response = apiProvider.get("/products/111");
+        Response response = restApiBuilder.get("/products/111");
         new HttpAssertions(response, Message.class)
                 .statusCode(404)
                 .assertionsMessage("Product not found");
@@ -70,14 +70,14 @@ class UserDataApiTest extends BaseApiTest {
 
     @Test
     public void testGetCustomerCart() {
-        Response response = apiProvider.get("/cart", token);
+        Response response = restApiBuilder.get("/cart", token);
         new HttpAssertions(response, CartResponse.class)
                 .statusCode(200);
     }
 
     @Test
     public void testAddExistingProductToCart() {
-        Response response = apiProvider.post("/cart", new CartRequest(1, 2), token);
+        Response response = restApiBuilder.post("/cart", new CartRequest(1, 2), token);
         new HttpAssertions(response, Message.class)
                 .statusCode(201)
                 .assertionsMessage("Product added to cart successfully");
@@ -86,7 +86,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testAddNotExistingProductToCart() {
         CartRequest requestBody = new CartRequest(111, 2);
-        Response response = apiProvider.post("/cart", requestBody, token);
+        Response response = restApiBuilder.post("/cart", requestBody, token);
         new HttpAssertions(response, Message.class)
                 .statusCode(404)
                 .assertionsMessage("Product not found");
@@ -95,7 +95,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testAddProductWithoutAuthHeader() {
         CartRequest requestBody = new CartRequest(1, 2);
-        Response response = apiProvider.post("/cart", requestBody);
+        Response response = restApiBuilder.post("/cart", requestBody);
         new HttpAssertions(response, Msg.class)
                 .statusCode(401)
                 .assertionsMessage("Missing Authorization Header");
@@ -105,7 +105,7 @@ class UserDataApiTest extends BaseApiTest {
     public void testAddProductWithInvalidToken() {
         String wrongToken = token.substring(0, token.length()-1) + ".";
         CartRequest requestBody = new CartRequest(1, 2);
-        Response response = apiProvider.post("/cart", requestBody, wrongToken);
+        Response response = restApiBuilder.post("/cart", requestBody, wrongToken);
         new HttpAssertions(response, Msg.class)
                 .statusCode(401)
                 .assertionsMessage("Missing Authorization Header");
@@ -114,7 +114,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testDeleteProductFromCart() {
         CartRequest requestBody = new CartRequest(1, 2);
-        Response response = apiProvider.delete("/cart/" + requestBody.getProductId(), token);
+        Response response = restApiBuilder.delete("/cart/" + requestBody.getProductId(), token);
         new HttpAssertions(response, Message.class)
                 .statusCode(200)
                 .assertionsMessage("Product removed from cart");
@@ -123,7 +123,7 @@ class UserDataApiTest extends BaseApiTest {
     @Test
     public void testDeleteNotExistProductFromCart() {
         CartRequest requestBody = new CartRequest(111, 2);
-        Response response = apiProvider.delete("/cart/" + requestBody.getProductId(), token);
+        Response response = restApiBuilder.delete("/cart/" + requestBody.getProductId(), token);
         new HttpAssertions(response, Message.class)
                 .statusCode(404)
                 .assertionsMessage("Product not found in cart");

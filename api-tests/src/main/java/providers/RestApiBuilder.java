@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class ApiProvider {
+public class RestApiBuilder {
     public static void filters() {
         RestAssured.filters(new RequestLoggingFilter(System.out), new ResponseLoggingFilter(System.out));
     }
