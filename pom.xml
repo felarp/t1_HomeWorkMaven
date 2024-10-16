@@ -13,8 +13,8 @@
     <properties>
         <rest-assured.version>5.0.0</rest-assured.version>
         <jackson-databind.version>2.18.0-rc1</jackson-databind.version>
-        <junit.jupiter.version>5.11.0</junit.jupiter.version>
-        <allure.junit5.version>5.0.0</allure.junit5.version>
+        <junit.jupiter.version>5.10.3</junit.jupiter.version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -23,53 +23,57 @@
                 <artifactId>junit-jupiter</artifactId>
                 <version>${junit.jupiter.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-junit5</artifactId>
-                <version>${allure.junit5.version}</version>
+                <artifactId>allure-maven</artifactId>
+                <version>2.14.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.9.19</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <allure.results.directory>target/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.19/aspectjweaver-1.9.19.jar"
+                    </argLine>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>1.9.19</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
     <profiles>
         <profile>
-            <id>default-profile</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>api-tests</module>
-                <module>ui-tests</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>api-tests</id>
-            <modules>
-                <module>api-tests</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>ui-tests</id>
-            <modules>
-                <module>ui-tests</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>smoke-tests</id>
+            <id>allure</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <groups>smoke</groups>
-                        </configuration>
+                        <groupId>io.qameta.allure</groupId>
+                        <artifactId>allure-maven</artifactId>
+                        <version>2.13.0</version>
                     </plugin>
                 </plugins>
             </build>
-            <modules>
-                <module>api-tests</module>
-                <module>ui-tests</module>
-            </modules>
         </profile>
     </profiles>
+
 </project>
