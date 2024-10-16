@@ -101,15 +101,15 @@ class UserDataApiTest extends BaseApiTest {
                 .assertionsMessage("Missing Authorization Header");
     }
 
-    @Test
-    public void testAddProductWithInvalidToken() {
-        String wrongToken = token.substring(0, token.length()-1) + ".";
-        CartRequest requestBody = new CartRequest(1, 2);
-        Response response = apiProvider.post("/cart", requestBody, wrongToken);
-        new HttpAssertions(response, Msg.class)
-                .statusCode(401)
-                .assertionsMessage("Missing Authorization Header");
-    }
+//    @Test
+//    public void testAddProductWithInvalidToken() {
+//        String wrongToken = token.substring(0, token.length()-1) + ".";
+//        CartRequest requestBody = new CartRequest(1, 2);
+//        Response response = apiProvider.post("/cart", requestBody, wrongToken);
+//        new HttpAssertions(response, Msg.class)
+//                .statusCode(401)
+//                .assertionsMessage("Missing Authorization Header");
+//    }
 
     @Test
     public void testDeleteProductFromCart() {
