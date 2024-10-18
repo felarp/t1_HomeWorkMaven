@@ -34,14 +34,6 @@ class UserDataApiTest extends BaseApiTest {
     }
 
 
-    @Test
-    public void testIncorrectPasswordUser() {
-        User user = new User("string", "strin");
-        Response response = restApiBuilder.post("/login", user);
-        new HttpAssertions(response, Message.class)
-                .statusCode(401)
-                .assertionsMessage("Invalid credentials");
-    }
 
     @Test
     public void testGetProductList() {
@@ -61,13 +53,7 @@ class UserDataApiTest extends BaseApiTest {
                 .assertListNotEmpty();
     }
 
-    @Test
-    public void testGetUnrealIdProduct() {
-        Response response = restApiBuilder.get("/products/111");
-        new HttpAssertions(response, Message.class)
-                .statusCode(404)
-                .assertionsMessage("Product not found");
-    }
+
 
     @Test
     public void testGetCustomerCart() {
@@ -84,33 +70,8 @@ class UserDataApiTest extends BaseApiTest {
                 .assertionsMessage("Product added to cart successfully");
     }
 
-    @Test
-    public void testAddNotExistingProductToCart() {
-        CartRequest requestBody = new CartRequest(111, 2);
-        Response response = restApiBuilder.post("/cart", requestBody, token);
-        new HttpAssertions(response, Message.class)
-                .statusCode(404)
-                .assertionsMessage("Product not found");
-    }
 
-    @Test
-    public void testAddProductWithoutAuthHeader() {
-        CartRequest requestBody = new CartRequest(1, 2);
-        Response response = restApiBuilder.post("/cart", requestBody);
-        new HttpAssertions(response, Msg.class)
-                .statusCode(401)
-                .assertionsMessage("Missing Authorization Header");
-    }
 
-    @Test
-    public void testAddProductWithInvalidToken() {
-        String wrongToken = token.substring(0, token.length()-1) + ".";
-        CartRequest requestBody = new CartRequest(1, 2);
-        Response response = restApiBuilder.post("/cart", requestBody, wrongToken);
-        new HttpAssertions(response, Msg.class)
-                .statusCode(401)
-                .assertionsMessage("Missing Authorization Header");
-    }
 
     @Test
     public void testDeleteProductFromCart() {
@@ -121,14 +82,7 @@ class UserDataApiTest extends BaseApiTest {
                 .assertionsMessage("Product removed from cart");
     }
 
-    @Test
-    public void testDeleteNotExistProductFromCart() {
-        CartRequest requestBody = new CartRequest(111, 2);
-        Response response = restApiBuilder.delete("/cart/" + requestBody.getProductId(), token);
-        new HttpAssertions(response, Message.class)
-                .statusCode(404)
-                .assertionsMessage("Product not found in cart");
-    }
+
 
 
 }

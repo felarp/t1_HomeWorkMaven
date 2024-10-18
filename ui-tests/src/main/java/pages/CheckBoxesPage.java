@@ -1,13 +1,13 @@
 package pages;
 
-import assertions.CommonAssertion;
-import com.codeborne.selenide.Condition;
+
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.codeborne.selenide.Condition.checked;
 import static com.codeborne.selenide.Selenide.$$x;
 
 public class CheckBoxesPage extends BasePage {
@@ -30,9 +30,14 @@ public class CheckBoxesPage extends BasePage {
 
     @Step("Проверяем состояние чекбокса")
     public void checkboxChecked(SelenideElement checkbox) {
-       boolean defaultState = checkbox.has(Condition.attribute("checked"));
-        checkbox.click();
-        CommonAssertion.assertNotEquals(defaultState,checkbox.has(Condition.attribute("checked")));
+
+        if (checkbox.isSelected()) {
+            checkbox.click();
+            checkbox.shouldNot(checked);
+        } else {
+            checkbox.click();
+            checkbox.should(checked);
+        }
     }
 }
 
