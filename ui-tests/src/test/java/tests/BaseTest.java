@@ -1,31 +1,32 @@
 package tests;
 
 import configuration.WebDriverManager;
-import enums.Urls;
 import listeners.AllureListener;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.codeborne.selenide.Selenide.open;
+
 
 @ExtendWith(AllureListener.class)
 public class BaseTest {
     static WebDriverManager driver = new WebDriverManager();
-    public static ProjectConfig config;
+
+     ProjectConfig projectConfig = ConfigFactory.create((ProjectConfig.class));
 
     @BeforeEach
     public void setUp() {
-        config = ConfigFactory.create(ProjectConfig.class);
-        String baseUrl = config.baseUrl();
-        openBrowser(baseUrl +Urls.MAINPAGE.getUrl());
+
+       open(projectConfig.baseUrl());
     }
 
 
 
-    public static void openBrowser(String url) {
-        driver.browserUp(url);
-    }
+//    public static void openBrowser(String url) {
+//        driver.browserUp(url);
+//    }
 
     @AfterEach
     public void close() {
