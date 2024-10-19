@@ -11,7 +11,7 @@ public class WebDriverManager {
     static {
         Configuration.browser = "chrome";
         Configuration.browserPosition = "0x0";
-        Configuration.browserVersion = "130.0";
+        Configuration.browserVersion = "129.0";
         Configuration.timeout = 20*1000;
         Configuration.pageLoadTimeout = 30*1000;
         Configuration.browserSize = "1900x1080";

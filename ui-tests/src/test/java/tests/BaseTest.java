@@ -23,11 +23,6 @@ public class BaseTest {
     }
 
 
-
-//    public static void openBrowser(String url) {
-//        driver.browserUp(url);
-//    }
-
     @AfterEach
     public void close() {
         driver.browserTearDown();

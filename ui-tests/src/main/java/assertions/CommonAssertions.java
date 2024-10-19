@@ -3,8 +3,7 @@ package assertions;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
-
-public class CommonAssertion {
+public class CommonAssertions {
 
     @Step("Проверяем что значения {actual} и {expected} не равны")
     public static void assertNotEquals(Object actual, Object expected) {
@@ -26,6 +25,4 @@ public class CommonAssertion {
     public static void assertTrue(boolean expression, String message) {
         Assertions.assertTrue(expression, message);
     }
-
 }
-

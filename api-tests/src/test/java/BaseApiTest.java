@@ -1,16 +1,18 @@
 
 import io.restassured.RestAssured;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
 import providers.RestApiBuilder;
 
 public class BaseApiTest {
 
     protected static RestApiBuilder restApiBuilder = new RestApiBuilder();
-
+    private static final ProjectConfig projectConfig = ConfigFactory.create((ProjectConfig.class));
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = "http://9b142cdd34e.vps.myjino.ru:49268";
+
+        RestAssured.baseURI = projectConfig.baseUrl() ;
         RestAssured.basePath = "";
         RestApiBuilder.filters();
     }

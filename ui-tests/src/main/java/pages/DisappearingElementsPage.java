@@ -1,6 +1,6 @@
 package pages;
 
-import assertions.CommonAssertion;
+import assertions.CommonAssertions;
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.*;
@@ -13,7 +13,7 @@ public class DisappearingElementsPage extends BasePage {
         ElementsCollection elements = $$("ul li");
         System.out.println("Found " + elements.size() + " elements.");
 
-        CommonAssertion.assertTrue(elements.size() == 5, "Expected 5 elements, but found: " + elements.size());
+        CommonAssertions.assertTrue(elements.size() == 5, "Expected 5 elements, but found: " + elements.size());
     }
 }
 
